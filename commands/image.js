@@ -1,13 +1,13 @@
 const { SlashCommandBuilder } = require('discord.js');
 const axios = require('axios');
-
+const { imageApiToken, imageApiVersion } = require('../config.json');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('image')
 		.setDescription('Fetches an AI generated image from the DALLE-Mini web API'),
 	async execute(interaction) {
 		const data = JSON.stringify({
-			"version": "2e3975b1692cd6aecac28616dba364cc9f1e30c610c6efd62dbe9b9c7d1d03ea",
+			"version": imageApiVersion,
 			"input": {
 				"prompt": "A black cat sitting on a wood table",
 				"n_predictions": 1,
@@ -18,7 +18,8 @@ module.exports = {
 			method: 'post',
 			url: 'https://api.replicate.com/v1/predictions',
 			headers: {
-				'Authorization': 'Token 24eb6dd8b60afafcf8a620356160a4db5df4fc32',
+				// TODO: Remove authorization token from source, generate a new token, and put it in config.json
+				'Authorization': 'Token ' + imageApiToken,
 				'Content-Type': 'application/json',
 			},
 			data: data,
@@ -34,4 +35,10 @@ module.exports = {
         console.log(JSON.stringify(await response.data));
 		interaction.reply("done");
 	},
+	async printInTenSeconds(str) {
+		setTimeout(function() {
+			console.log(str);
+		}, 10000);
+	},
+
 };
