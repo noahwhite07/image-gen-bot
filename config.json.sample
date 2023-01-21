@@ -4,4 +4,11 @@
     "guildId":"",
     "imageApiToken":"",
     "imageApiVersion":""
+    "mySqlInfo":{
+        "host": "localhost",
+        "user": "",
+        "password": "",
+        "database": "",
+        "port": 
+    }
 }
